@@ -50,8 +50,8 @@ jobs:
       # Uncomment the following step, add, commit and push.
       # The workflow should FAIL.
       #
-      - name: Intentionally fail
-        run: exit 1
+      # - name: Intentionally fail
+      #   run: exit 1
       #
       # After observing the failed pipeline, comment it again
       # and push the fix. The workflow should become GREEN.
