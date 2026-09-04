@@ -4,6 +4,7 @@ name: Hello GitHub Actions
 # when the workflow runs
 on:
   push:
+  workflow_dispatch:
 
 # what work needs to be done
 jobs:
