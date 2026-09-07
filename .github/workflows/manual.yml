@@ -1,0 +1,18 @@
+name: Manual Environment Workflow
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Enter the environment name"
+        required: true
+        type: string
+
+jobs:
+  manual-job:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Print environment
+        run: |
+            echo "Selected environment: ${{ inputs.environment }}"
