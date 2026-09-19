@@ -26,9 +26,9 @@ echo "Memory:"
 free -h
 
 # Intentional Failure
-echo ""
-echo "Running intentional failure..."
-exit 1
+# echo ""
+# echo "Running intentional failure..."
+# exit 1
 
 echo ""
 echo "===== System Information Check Completed ====="
