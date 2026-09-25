@@ -3,7 +3,7 @@
 FROM nginx:alpine
 
 LABEL org.opencontainers.image.title="DockerFlow CI/CD Demo"
-LABEL org.opencontainers.image.description="Modern Docker CI/CD demo for the 90 Days of DevOps challenge"
+LABEL org.opencontainers.image.description="Docker CI/CD demo for the 90 Days of DevOps challenge"
 
 # Remove the default Nginx page.
 RUN rm -rf /usr/share/nginx/html/*
