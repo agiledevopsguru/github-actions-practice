@@ -1,7 +1,9 @@
 name: Python OS Matrix
 
 on:
-  push:
+  # push:
+  workflow_dispatch:
+
 
 jobs:
   test-matrix:
