@@ -1,0 +1,81 @@
+name: PR Validation Checks
+
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  file-size-check:
+    name: File Size Check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Check Changed File Sizes
+        env:
+          BASE_REF: ${{ github.event.pull_request.base.ref }}
+        run: |
+          git fetch origin "$BASE_REF"
+
+          mapfile -t files < <(
+            git diff --name-only --diff-filter=ACMRT \
+            "origin/$BASE_REF...HEAD"
+          )
+
+          for file in "${files[@]}"; do
+            if [ -f "$file" ]; then
+              size=$(stat -c%s "$file")
+
+              echo "$file : $size bytes"
+
+              if [ "$size" -gt 1048576 ]; then
+                echo "ERROR: $file exceeds 1 MB!"
+                exit 1
+              fi
+            fi
+          done
+
+          echo "All changed files are within the size limit."
+
+  branch-name-check:
+    name: Branch Name Check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Validate Branch Name
+        env:
+          BRANCH_NAME: ${{ github.head_ref }}
+        run: |
+          echo "Checking branch: $BRANCH_NAME"
+
+          if [[ "$BRANCH_NAME" =~ ^(feature|fix|docs)/.+ ]]; then
+            echo "Branch name is valid."
+          else
+            echo "ERROR: Invalid branch name!"
+            echo "Allowed: feature/*, fix/*, docs/*"
+            exit 1
+          fi
+
+  pr-body-check:
+    name: PR Description Check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check PR Description
+        env:
+          PR_BODY: ${{ github.event.pull_request.body }}
+        run: |
+          if [ -z "$(echo "$PR_BODY" | tr -d '[:space:]')" ]; then
+            echo "::warning::Pull request description is empty!"
+          else
+            echo "PR description is present."
+          fi
