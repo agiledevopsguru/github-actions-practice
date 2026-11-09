@@ -1,6 +1,6 @@
 # Hi, I'm Nandan P Aghera 👋
 
-### Software Engineer | DevOps Enthusiast
+### Software Engineer (SWE) | DevOps Enthusiast
 
 *Building, automating, and learning one step at a time.*
 
