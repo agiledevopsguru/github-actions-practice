@@ -1,0 +1,22 @@
+name: External Event Trigger
+
+on:
+  repository_dispatch:
+    types:
+      - deploy-request
+
+jobs:
+  external-deployment:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Display External Event
+        run: |
+          echo "External event received!"
+          echo "Event Type: ${{ github.event.action }}"
+          echo "Environment: ${{ github.event.client_payload.environment }}"
+
+      - name: Process Deployment Request
+        run: |
+          echo "Processing deployment request..."
+          echo "Target Environment: ${{ github.event.client_payload.environment }}"
