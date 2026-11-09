@@ -21,7 +21,6 @@ jobs:
         run: |
           echo "Tests passed successfully!"
           echo "Proceeding with deployment..."
-          echo "Add your actual deployment commands here."
 
       - name: Deployment Blocked
         if: github.event.workflow_run.conclusion != 'success'
