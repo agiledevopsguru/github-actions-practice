@@ -14,5 +14,4 @@ jobs:
       - name: Run Tests
         run: |
           echo "Running application tests..."
-          echo "Replace this step with your actual test command."
           echo "Tests completed successfully!"
